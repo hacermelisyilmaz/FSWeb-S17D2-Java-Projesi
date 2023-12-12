@@ -1,14 +1,12 @@
 package com.workintech.spring.developer.rest;
 
+import com.workintech.spring.developer.enums.Experience;
 import com.workintech.spring.developer.model.Developer;
 import com.workintech.spring.developer.tax.Taxable;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,5 +36,16 @@ public class DeveloperController {
     @GetMapping("{id}")
     public Developer getDeveloper(@PathVariable int id) {
         return developers.get(id);
+    }
+
+    @PostMapping
+    public void addDeveloper(@RequestBody int id, @RequestBody String name, @RequestBody double salary, @RequestBody Experience experience) {
+        double salaryAfterTax = salary;
+        switch (experience) {
+            case JUNIOR -> salaryAfterTax = salary * (1 - developerTax.getSimpleTaxRate());
+            case MID -> salaryAfterTax = salary * (1 - developerTax.getMiddleTaxRate());
+            case SENIOR -> salaryAfterTax = salary * (1 - developerTax.getUpperTaxRate());
+        }
+        developers.put(id, new Developer(id, name, salaryAfterTax, experience));
     }
 }
