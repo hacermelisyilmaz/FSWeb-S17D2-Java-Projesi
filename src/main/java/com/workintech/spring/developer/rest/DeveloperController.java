@@ -6,6 +6,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +33,10 @@ public class DeveloperController {
     @GetMapping
     public List getDevelopers() {
         return developers.values().stream().toList();
+    }
+
+    @GetMapping("{id}")
+    public Developer getDeveloper(@PathVariable int id) {
+        return developers.get(id);
     }
 }
