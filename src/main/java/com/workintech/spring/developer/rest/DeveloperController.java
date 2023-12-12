@@ -48,4 +48,9 @@ public class DeveloperController {
         }
         developers.put(id, new Developer(id, name, salaryAfterTax, experience));
     }
+
+    @PutMapping("/{id}")
+    public void updateDeveloper(@RequestBody Developer developer) {
+        developers.put(developer.getId(), developer);
+    }
 }
