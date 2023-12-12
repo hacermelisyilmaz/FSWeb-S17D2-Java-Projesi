@@ -53,4 +53,9 @@ public class DeveloperController {
     public void updateDeveloper(@RequestBody Developer developer) {
         developers.put(developer.getId(), developer);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteDeveloper(@PathVariable int id) {
+        developers.remove(id);
+    }
 }
