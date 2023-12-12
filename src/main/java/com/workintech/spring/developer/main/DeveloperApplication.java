@@ -1,4 +1,4 @@
-package com.workintech.spring.developer;
+package com.workintech.spring.developer.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
